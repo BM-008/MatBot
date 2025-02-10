@@ -24,8 +24,7 @@ def run_flow(message: str) -> dict:
     headers = {"Authorization": "Bearer " + APPLICATION_TOKEN, "Content-Type": "application/json"}
     response = requests.post(api_url, json=payload, headers=headers)
     return response.json()
-
-# Adding an image at the top
+    
 st.image("img.jpg", use_container_width=True)
 
 st.markdown("""
