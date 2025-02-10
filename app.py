@@ -10,7 +10,7 @@ BASE_API_URL = "https://api.langflow.astra.datastax.com"
 LANGFLOW_ID = "478dd003-8ac0-4d40-815e-77e7d1ae9343"
 FLOW_ID = "0853dfd7-558c-4958-9ca4-dc9ca8c69302"
 APPLICATION_TOKEN = os.environ.get("APP_TOKEN")
-ENDPOINT = "materialssciencebot" # You can set a specific endpoint name in the flow settings
+ENDPOINT = "materialssciencebot"
 
 def run_flow(message: str) -> dict:
     api_url = f"{BASE_API_URL}/lf/{LANGFLOW_ID}/api/v1/run/{ENDPOINT}"
