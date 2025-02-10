@@ -26,7 +26,7 @@ def run_flow(message: str) -> dict:
     return response.json()
 
 # Adding an image at the top
-st.image(r"C:/Users/topic/OneDrive/Pictures/WhatsApp Image 2025-02-10 at 16.18.20_a1254462.jpg", use_container_width=True)
+st.image("img.jpg", use_container_width=True)
 
 st.markdown("""
     <style>
