@@ -32,7 +32,7 @@ st.markdown("""
         .footer {
             position: fixed;
             bottom: 0;
-            right: 0;
+            left: 0;
             padding: 10px;
             font-size: 16px;
             color: #333;
