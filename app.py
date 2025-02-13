@@ -68,7 +68,7 @@ def main():
     st.title("Materials Science Bot")
     st.markdown("<h4 style='font-size: 20px;'> Ask anything related to the world of materials! 😉</h4>", unsafe_allow_html=True)
     message = st.text_area("Message", placeholder="What is oxidation?...")
-    
+
     if st.button("Run"):
         if not message.strip():
             st.error("Please enter a message")
@@ -76,24 +76,16 @@ def main():
         
         try:
             with st.spinner("Running flow..."):
-                response = run_flow(message)  # Call API
+                response_placeholder = st.empty()
+                full_response = ""
 
-# Extract the actual message text from the nested JSON response
-try:
-    bot_reply = response["outputs"][0]["outputs"][0]["results"]["message"]["text"]
+                for chunk in run_flow(message):  # Stream response
+                    full_response += chunk  # Append the latest chunk
+                    response_placeholder.markdown(full_response)
 
-    # Display response with streaming effect
-    response_placeholder = st.empty()
-    full_response = ""
+        except Exception as e:
+            st.error(f"⚠️ Error: {str(e)}")
 
-    for chunk in bot_reply:
-        full_response += chunk  # Append character-by-character for smooth effect
-        response_placeholder.markdown(full_response)
-
-except (KeyError, IndexError, TypeError) as e:
-    st.error(f"Unexpected API response format: {e}")
-except Exception as e:
-    st.error(str(e))
 
 if __name__ == "__main__":
     main()
