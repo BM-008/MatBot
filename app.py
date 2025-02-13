@@ -76,16 +76,24 @@ def main():
         
         try:
             with st.spinner("Running flow..."):
-                response = run_flow(message)  # Stream response
-                
-                # Display output as it comes in
-                response_placeholder = st.empty()
-                full_response = ""
-                for chunk in response:
-                    full_response = chunk
-                    response_placeholder.markdown(full_response)
-        except Exception as e:
-            st.error(str(e))
+                response = run_flow(message)  # Call API
+
+# Extract the actual message text from the nested JSON response
+try:
+    bot_reply = response["outputs"][0]["outputs"][0]["results"]["message"]["text"]
+
+    # Display response with streaming effect
+    response_placeholder = st.empty()
+    full_response = ""
+
+    for chunk in bot_reply:
+        full_response += chunk  # Append character-by-character for smooth effect
+        response_placeholder.markdown(full_response)
+
+except (KeyError, IndexError, TypeError) as e:
+    st.error(f"Unexpected API response format: {e}")
+except Exception as e:
+    st.error(str(e))
 
 if __name__ == "__main__":
     main()
