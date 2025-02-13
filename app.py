@@ -25,7 +25,7 @@ def run_flow(message: str):
     headers = {"Authorization": f"Bearer {APPLICATION_TOKEN}", "Content-Type": "application/json"}
     
     try:
-        response = requests.post(api_url, json=payload, headers=headers, timeout=30, stream=True)
+        response = requests.post(api_url, json=payload, headers=headers, timeout=60, stream=True)
         response.raise_for_status()  # Raise error for HTTP failures
         
         collected_response = ""
