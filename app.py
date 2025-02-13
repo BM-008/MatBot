@@ -81,7 +81,12 @@ def main():
 
                 for chunk in run_flow(message):  # Stream response
                     full_response += chunk  # Append the latest chunk
-                    response_placeholder.markdown(full_response)
+                    try:
+                        json_response = json.loads(full_response)  # Convert to JSON
+                        extracted_text = json_response["outputs"][0]["outputs"][0]["results"]["message"]["text"]
+                        response_placeholder.markdown(extracted_text)  # Display only AI response
+                    except (json.JSONDecodeError, KeyError):
+                        response_placeholder.markdown(full_response)  # Show raw response if parsing fails
 
         except Exception as e:
             st.error(f"⚠️ Error: {str(e)}")
